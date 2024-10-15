@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpGraph.Native", "SharpGraph.Native\SharpGraph.Native.csproj", "{6EED9699-3A28-4084-8905-A092E5536874}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.csproj", "{A15B4681-39A1-4586-993D-3DB5DA46481E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpGraph", "SharpGraph\SharpGraph.csproj", "{2F0AFCBA-B003-49D9-B8C6-B62A31F3AA67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6EED9699-3A28-4084-8905-A092E5536874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EED9699-3A28-4084-8905-A092E5536874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EED9699-3A28-4084-8905-A092E5536874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EED9699-3A28-4084-8905-A092E5536874}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A15B4681-39A1-4586-993D-3DB5DA46481E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A15B4681-39A1-4586-993D-3DB5DA46481E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A15B4681-39A1-4586-993D-3DB5DA46481E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A15B4681-39A1-4586-993D-3DB5DA46481E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F0AFCBA-B003-49D9-B8C6-B62A31F3AA67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F0AFCBA-B003-49D9-B8C6-B62A31F3AA67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F0AFCBA-B003-49D9-B8C6-B62A31F3AA67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F0AFCBA-B003-49D9-B8C6-B62A31F3AA67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
