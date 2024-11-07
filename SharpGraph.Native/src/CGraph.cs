@@ -1,10 +1,11 @@
 ﻿using System.Runtime.InteropServices;
-using static SharpGraph.Native.GraphViz;
 
 namespace SharpGraph.Native;
 
 public static partial class CGraph
 {
+    public const string LibCGraph = "cgraph";
+    
     public static IntPtr AGDATA(IntPtr n)
     {
         /*
@@ -29,22 +30,25 @@ public static partial class CGraph
         return Marshal.PtrToStructure<Position>(ptr);
     }
     
-    [LibraryImport(LibGraphViz, StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
     public static partial IntPtr agopen(string label, byte desc, IntPtr unusedNull);
 
-    [LibraryImport(LibGraphViz)]
+    [LibraryImport(LibCGraph)]
     public static partial void agclose(IntPtr g);
 
-    [LibraryImport(LibGraphViz, StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
     public static partial IntPtr agnode(IntPtr g, string? name, [MarshalAs(UnmanagedType.I4)] bool create);
 
-    [LibraryImport(LibGraphViz, StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
     public static partial IntPtr agedge(IntPtr g, IntPtr tail, IntPtr head, string? identifier,
         [MarshalAs(UnmanagedType.I4)] bool create);
 
-    [LibraryImport(LibGraphViz, StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
     public static partial IntPtr agmemread(string cp);
 
-    [LibraryImport(LibGraphViz, StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
     public static partial string? agget(IntPtr n, string a);
+
+    [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
+    public static partial IntPtr agsubg(IntPtr g, string name, [MarshalAs(UnmanagedType.I4)]  bool create);
 }
