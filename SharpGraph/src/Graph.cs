@@ -1,17 +1,10 @@
 using SharpGraph.Native;
-using static SharpGraph.Native.GraphViz;
 
 namespace SharpGraph;
 
-public class Graph : IDisposable
+public abstract class Graph(IntPtr ptr)
 {
-    internal IntPtr Ptr;
-
-    public Graph(string label)
-    {
-        // TODO: Validate descriptor
-        Ptr = CGraph.agopen(label, 0b01001000, 0);
-    }
+    public IntPtr Ptr { get; protected set; } = ptr;
 
     public Node GetNode(string name) => new(this, name, create: true);
 
@@ -21,24 +14,11 @@ public class Graph : IDisposable
         return ptr == 0 ? null : new Node(this, ptr);
     }
 
-    public void Dispose()
-    {
-        if (Ptr != 0)
-        {
-            CGraph.agclose(Ptr);
-            Ptr = 0;
-        }
+    public SubGraph GetSubGraph(string name) => new(this, name, create: true);
 
-        GC.SuppressFinalize(this);
-    }
-
-    public void Layout(string algo)
+    public SubGraph? FindSubGraph(string name)
     {
-        gvLayout(Context.GetContext(), Ptr, algo);
-    }
-
-    public void RenderToFile(string format, string path)
-    {
-        gvRenderFilename(Context.GetContext(), Ptr, format, path);
+        var ptr = CGraph.agsubg(Ptr, name, false);
+        return ptr == 0 ? null : new SubGraph(this, ptr);
     }
 }

@@ -1,8 +1,9 @@
 ﻿using SharpGraph;
 
-var graph = new Graph("Test");
+var graph = new RootGraph("Test");
 var u = graph.GetNode("U");
-var v = graph.GetNode("V");
+var sub = graph.GetSubGraph("cluster_Sub");
+var v = sub.GetNode("V");
 u.AddEdgeTo(v, "edge");
 
 graph.Layout("dot");
