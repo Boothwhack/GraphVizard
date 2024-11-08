@@ -29,6 +29,8 @@ public static partial class CGraph
         var ptr = data + 32;
         return Marshal.PtrToStructure<Position>(ptr);
     }
+
+    public const int AGRAPH = 0, AGNODE = 1, AGEDGE = 2, AGOUTEDGE = AGEDGE, AGINEDGE = 3;
     
     [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
     public static partial IntPtr agopen(string label, byte desc, IntPtr unusedNull);
@@ -47,8 +49,20 @@ public static partial class CGraph
     public static partial IntPtr agmemread(string cp);
 
     [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
-    public static partial string? agget(IntPtr n, string a);
+    public static partial string? agget(IntPtr n, string name);
+
+    [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
+    public static partial string? agxget(IntPtr n, IntPtr idx);
+
+    [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
+    public static partial void agset(IntPtr n, string name, string? value);
+
+    [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
+    public static partial void agxset(IntPtr n, IntPtr idx, string? value);
 
     [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
     public static partial IntPtr agsubg(IntPtr g, string name, [MarshalAs(UnmanagedType.I4)]  bool create);
+
+    [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
+    public static partial IntPtr agattr(IntPtr g, int type, string name, string? def);
 }

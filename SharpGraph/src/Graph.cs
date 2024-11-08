@@ -5,6 +5,8 @@ namespace SharpGraph;
 public abstract class Graph(IntPtr ptr)
 {
     public IntPtr Ptr { get; protected set; } = ptr;
+    public abstract AttributeSet AttributeSet { get; }
+    public abstract Attributes Attributes { get; }
 
     public Node GetNode(string name) => new(this, name, create: true);
 

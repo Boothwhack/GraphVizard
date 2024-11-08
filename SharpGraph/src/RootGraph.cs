@@ -3,9 +3,18 @@ using static SharpGraph.Native.GraphViz;
 
 namespace SharpGraph;
 
-public class RootGraph(string label) : Graph(CGraph.agopen(label, 0b01001000, 0)), IDisposable
+public sealed class RootGraph : Graph, IDisposable
 {
     // TODO: Validate descriptor
+
+    public override AttributeSet AttributeSet { get; }
+    public override Attributes Attributes { get; }
+
+    public RootGraph(string label) : base(CGraph.agopen(label, 0b01001000, 0))
+    {
+        AttributeSet = new AttributeSet(Ptr);
+        Attributes = new Attributes(AttributeSet, Ptr, CGraph.AGRAPH);
+    }
 
     public void Dispose()
     {
