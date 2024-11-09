@@ -21,8 +21,5 @@ public class Node
 
     public Position Position => CGraph.ND_coord(Ptr);
 
-    public void AddEdgeTo(Node head, string? identifier = null)
-    {
-        CGraph.agedge(Graph.Ptr, Ptr, head.Ptr, identifier, true);
-    }
+    public Edge AddEdgeTo(Node head, string? identifier = null) => new(Graph, Ptr, head.Ptr, identifier);
 }

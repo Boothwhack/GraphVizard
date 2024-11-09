@@ -16,7 +16,7 @@ public abstract class Graph(IntPtr ptr)
         return ptr == 0 ? null : new Node(this, ptr);
     }
 
-    public SubGraph GetSubGraph(string name) => new(this, name, create: true);
+    public SubGraph GetSubGraph(string name) => new(this, name);
 
     public SubGraph? FindSubGraph(string name)
     {

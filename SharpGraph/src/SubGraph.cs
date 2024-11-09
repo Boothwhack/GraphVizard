@@ -2,21 +2,22 @@ using SharpGraph.Native;
 
 namespace SharpGraph;
 
-public class SubGraph : Graph
+public sealed class SubGraph : Graph
 {
     internal readonly Graph Parent;
-    public sealed override AttributeSet AttributeSet => Parent.AttributeSet;
+
+    //public sealed override AttributeSet AttributeSet => Parent.AttributeSet;
+    public override AttributeSet AttributeSet { get; }
     public override Attributes Attributes { get; }
 
     internal SubGraph(Graph parent, IntPtr ptr) : base(ptr)
     {
         Parent = parent;
+        AttributeSet = new AttributeSet(Ptr);
         Attributes = new Attributes(AttributeSet, Ptr, CGraph.AGRAPH);
     }
 
-    internal SubGraph(Graph parent, string name, bool create) : base(CGraph.agsubg(parent.Ptr, name, create))
+    internal SubGraph(Graph parent, string name) : this(parent, CGraph.agsubg(parent.Ptr, name, true))
     {
-        Parent = parent;
-        Attributes = new Attributes(AttributeSet, Ptr, CGraph.AGRAPH);
     }
 }

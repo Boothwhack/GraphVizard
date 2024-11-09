@@ -21,4 +21,6 @@ public class AttributeSet(IntPtr g)
             return value;
         return CGraph.agattr(g, type, name, null);
     }
+
+    public Attributes AttributesFor(IntPtr n, int type) => new(this, n, type);
 }
