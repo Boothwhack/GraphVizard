@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SharpGraph.Native\SharpGraph.Native.csproj" />
+      <ProjectReference Include="..\GraphVizard.Interop\GraphVizard.Interop.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
-using SharpGraph.Native;
+using GraphVizard.Interop;
 
-namespace SharpGraph;
+namespace GraphVizard;
 
 public abstract class Graph(IntPtr ptr)
 {

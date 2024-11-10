@@ -1,4 +1,4 @@
-namespace SharpGraph.Native;
+namespace GraphVizard.Interop;
 
 public struct Position
 {

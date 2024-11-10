@@ -1,7 +1,7 @@
-using SharpGraph.Native;
-using static SharpGraph.Native.GraphViz;
+using GraphVizard.Interop;
+using static GraphVizard.Interop.GraphViz;
 
-namespace SharpGraph;
+namespace GraphVizard;
 
 public sealed class RootGraph : Graph, IDisposable
 {

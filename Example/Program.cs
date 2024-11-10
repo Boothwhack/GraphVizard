@@ -1,4 +1,4 @@
-﻿using SharpGraph;
+﻿using GraphVizard;
 
 var graph = new RootGraph("Test");
 var u = graph.GetNode("U");

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace SharpGraph.Native;
+namespace GraphVizard.Interop;
 
 public static partial class GraphViz
 {

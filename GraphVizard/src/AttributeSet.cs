@@ -1,6 +1,6 @@
-using SharpGraph.Native;
+using GraphVizard.Interop;
 
-namespace SharpGraph;
+namespace GraphVizard;
 
 public class AttributeSet(IntPtr g)
 {

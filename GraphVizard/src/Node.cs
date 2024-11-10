@@ -1,6 +1,6 @@
-using SharpGraph.Native;
+using GraphVizard.Interop;
 
-namespace SharpGraph;
+namespace GraphVizard;
 
 public class Node
 {
@@ -20,6 +20,12 @@ public class Node
     }
 
     public Position Position => CGraph.ND_coord(Ptr);
+
+    public string? Label
+    {
+        get => Attributes["label"];
+        set => Attributes["label"] = value;
+    }
 
     public Edge AddEdgeTo(Node head, string? identifier = null) => new(Graph, Ptr, head.Ptr, identifier);
 }
