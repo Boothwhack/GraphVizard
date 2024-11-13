@@ -5,6 +5,33 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        
+        <GraphVizVersion>12.2.0</GraphVizVersion>
+        <GraphVizWin64Hash>1f16f1bcb4087096de0065e2b872f0e925437c93f4c7ba145d38dcdc853334e5</GraphVizWin64Hash>
     </PropertyGroup>
+
+    <Target Name="PrepareGraphvizWin64" BeforeTargets="Build">
+        <DownloadFile
+                DestinationFolder="$(IntermediateOutputPath)"
+                SourceUrl="https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/$(GraphVizVersion)/windows_10_cmake_Release_Graphviz-$(GraphVizVersion)-win64.zip"
+                DestinationFileName="Graphviz-$(GraphVizVersion)-win64.zip"
+        />
+        <VerifyFileHash
+                File="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64.zip"
+                Hash="$(GraphVizWin64Hash)"
+        />
+        <Unzip
+                DestinationFolder="$(IntermediateOutputPath)"
+                SourceFiles="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64.zip"
+        />
+
+        <ItemGroup>
+            <None
+                    Include="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64/bin/*.dll"
+                    Pack="true"
+                    PackagePath="runtimes/win-x64/native/"
+            />
+        </ItemGroup>
+    </Target>
 
 </Project>
