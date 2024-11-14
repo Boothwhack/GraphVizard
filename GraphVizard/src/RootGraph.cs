@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using GraphVizard.Interop;
 using static GraphVizard.Interop.GraphViz;
 
@@ -35,5 +36,13 @@ public sealed class RootGraph : Graph, IDisposable
     public void RenderToFile(string format, string path)
     {
         gvRenderFilename(Context.GetContext(), Ptr, format, path);
+    }
+
+    public string RenderToString(string format)
+    {
+        gvRenderData(Context.GetContext(), Ptr, format, out var data, out var length);
+        var output = Marshal.PtrToStringUTF8(data, (int) length);
+        gvFreeRenderData(data);
+        return output;
     }
 }
