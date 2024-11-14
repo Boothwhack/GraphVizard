@@ -31,4 +31,7 @@ public static partial class GraphViz
 
     [LibraryImport(LibGraphViz, StringMarshalling = StringMarshalling.Utf8)]
     public static partial void gvRenderData(IntPtr gvc, IntPtr g, string format, out IntPtr data, out uint length);
+
+    [LibraryImport(LibGraphViz)]
+    public static partial void gvFreeRenderData(IntPtr data);
 }
