@@ -5,32 +5,41 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        
+
+        <PackageId>GraphVizard.Interop</PackageId>
+        <Authors>Karoline Rasmussen</Authors>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+
         <GraphVizVersion>12.2.0</GraphVizVersion>
         <GraphVizWin64Hash>1f16f1bcb4087096de0065e2b872f0e925437c93f4c7ba145d38dcdc853334e5</GraphVizWin64Hash>
+        <GraphVizWin32Hash>7144db8471cf9d3b32291450ab0343e8ebe2f08042ba92fcecf8cfff33deafef</GraphVizWin32Hash>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="GitVersion.MsBuild" Version="6.0.5">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
+        <None Include=".\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
     <Target Name="PrepareGraphvizWin64" BeforeTargets="Build">
-        <DownloadFile
-                DestinationFolder="$(IntermediateOutputPath)"
-                SourceUrl="https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/$(GraphVizVersion)/windows_10_cmake_Release_Graphviz-$(GraphVizVersion)-win64.zip"
-                DestinationFileName="Graphviz-$(GraphVizVersion)-win64.zip"
-        />
-        <VerifyFileHash
-                File="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64.zip"
-                Hash="$(GraphVizWin64Hash)"
-        />
-        <Unzip
-                DestinationFolder="$(IntermediateOutputPath)"
-                SourceFiles="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64.zip"
-        />
+        <DownloadFile DestinationFolder="$(IntermediateOutputPath)" SourceUrl="https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/$(GraphVizVersion)/windows_10_cmake_Release_Graphviz-$(GraphVizVersion)-win64.zip" DestinationFileName="Graphviz-$(GraphVizVersion)-win64.zip" />
+        <VerifyFileHash File="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64.zip" Hash="$(GraphVizWin64Hash)" />
+        <Unzip DestinationFolder="$(IntermediateOutputPath)" SourceFiles="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64.zip" />
 
         <ItemGroup>
-            <None
-                    Include="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64/bin/*.dll"
-                    Pack="true"
-                    PackagePath="runtimes/win-x64/native/"
-            />
+            <None Include="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64/bin/*.dll" Pack="true" PackagePath="runtimes/win-x64/native/" />
+        </ItemGroup>
+    </Target>
+
+    <Target Name="PrepareGraphvizWin32" BeforeTargets="Build">
+        <DownloadFile DestinationFolder="$(IntermediateOutputPath)" SourceUrl="https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/$(GraphVizVersion)/windows_10_cmake_Release_Graphviz-$(GraphVizVersion)-win32.zip" DestinationFileName="Graphviz-$(GraphVizVersion)-win32.zip" />
+        <VerifyFileHash File="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win32.zip" Hash="$(GraphVizWin32Hash)" />
+        <Unzip DestinationFolder="$(IntermediateOutputPath)" SourceFiles="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win32.zip" />
+
+        <ItemGroup>
+            <None Include="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win32/bin/*.dll" Pack="true" PackagePath="runtimes/win-x32/native/" />
         </ItemGroup>
     </Target>
 
