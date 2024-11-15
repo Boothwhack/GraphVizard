@@ -29,6 +29,7 @@
 
         <ItemGroup>
             <None Include="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64/bin/*.dll" Pack="true" PackagePath="runtimes/win-x64/native/" />
+            <None Include="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64/bin/config6" Pack="true" PackagePath="runtimes/win-x64/native/" />
         </ItemGroup>
     </Target>
 
@@ -39,6 +40,7 @@
 
         <ItemGroup>
             <None Include="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win32/bin/*.dll" Pack="true" PackagePath="runtimes/win-x32/native/" />
+            <None Include="$(IntermediateOutputPath)Graphviz-$(GraphVizVersion)-win64/bin/config6" Pack="true" PackagePath="runtimes/win-x32/native/" />
         </ItemGroup>
     </Target>
 
