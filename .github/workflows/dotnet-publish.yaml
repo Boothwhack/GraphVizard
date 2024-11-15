@@ -1,5 +1,11 @@
 name: dotnet publish
-on: push
+on:
+  push:
+    # publish tags and release branches
+    tags:
+      - "*"
+    branches:
+      - "release/*"
 jobs:
   publish:
     runs-on: ubuntu-22.04
