@@ -8,6 +8,7 @@
         <PackageId>GraphVizard</PackageId>
         <Authors>Karoline Rasmussen</Authors>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
