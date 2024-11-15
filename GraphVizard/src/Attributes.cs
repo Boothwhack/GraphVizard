@@ -17,4 +17,10 @@ public class Attributes(AttributeSet attributeSet, IntPtr n, int type)
             CGraph.agxset(n, idx, value);
         }
     }
+
+    public string? Label
+    {
+        get => this[CommonAttributes.Label];
+        set => this[CommonAttributes.Label] = value;
+    }
 }
