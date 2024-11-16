@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using GraphVizard.Interop;
 
 namespace GraphVizard;
@@ -7,7 +8,7 @@ public abstract class Graph(IntPtr ptr)
     public IntPtr Ptr { get; protected set; } = ptr;
     public abstract AttributeSet AttributeSet { get; }
     public abstract Attributes Attributes { get; }
-    public string Name => CGraph.agnameof(Ptr) ?? throw new IllegalStateException("Graph ptr does not have a name");
+    public string Name => Marshal.PtrToStringUTF8(CGraph.agnameof(Ptr)) ?? throw new IllegalStateException("Graph ptr does not have a name");
 
     public Node GetNode(string name) => new(this, name, create: true);
 
