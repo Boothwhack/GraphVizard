@@ -21,5 +21,7 @@ public class Node
 
     public Position Position => CGraph.ND_coord(Ptr);
 
+    public string Name => CGraph.agnameof(Ptr) ?? throw new IllegalStateException("Node ptr does not have a name");
+
     public Edge AddEdgeTo(Node head, string? identifier = null) => new(Graph, Ptr, head.Ptr, identifier);
 }

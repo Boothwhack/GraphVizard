@@ -7,6 +7,7 @@ public abstract class Graph(IntPtr ptr)
     public IntPtr Ptr { get; protected set; } = ptr;
     public abstract AttributeSet AttributeSet { get; }
     public abstract Attributes Attributes { get; }
+    public string Name => CGraph.agnameof(Ptr) ?? throw new IllegalStateException("Graph ptr does not have a name");
 
     public Node GetNode(string name) => new(this, name, create: true);
 
