@@ -67,5 +67,5 @@ public static partial class CGraph
     public static partial IntPtr agattr(IntPtr g, int type, string name, string? def);
 
     [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
-    public static partial string? agnameof(IntPtr n);
+    public static partial IntPtr agnameof(IntPtr n);
 }
