@@ -68,4 +68,16 @@ public static partial class CGraph
 
     [LibraryImport(LibCGraph, StringMarshalling = StringMarshalling.Utf8)]
     public static partial IntPtr agnameof(IntPtr n);
+
+    [LibraryImport(LibCGraph)]
+    public static partial IntPtr agfstnode(IntPtr g);
+
+    [LibraryImport(LibCGraph)]
+    public static partial IntPtr agnxtnode(IntPtr g, IntPtr n);
+
+    [LibraryImport(LibCGraph)]
+    public static partial IntPtr agfstedge(IntPtr g, IntPtr n);
+
+    [LibraryImport(LibCGraph)]
+    public static partial IntPtr agnxtedge(IntPtr g, IntPtr e, IntPtr n);
 }
