@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphVizard", "GraphVizard\GraphVizard.csproj", "{2F0AFCBA-B003-49D9-B8C6-B62A31F3AA67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphVizard.Tests", "GraphVizard.Tests\GraphVizard.Tests.csproj", "{81FBB38E-BF55-458F-82A1-308B43BE2EAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{2F0AFCBA-B003-49D9-B8C6-B62A31F3AA67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F0AFCBA-B003-49D9-B8C6-B62A31F3AA67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F0AFCBA-B003-49D9-B8C6-B62A31F3AA67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81FBB38E-BF55-458F-82A1-308B43BE2EAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81FBB38E-BF55-458F-82A1-308B43BE2EAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81FBB38E-BF55-458F-82A1-308B43BE2EAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81FBB38E-BF55-458F-82A1-308B43BE2EAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
