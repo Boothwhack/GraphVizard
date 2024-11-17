@@ -10,7 +10,7 @@ public abstract class Graph(IntPtr ptr)
     public abstract Attributes Attributes { get; }
     public string Name => Marshal.PtrToStringUTF8(CGraph.agnameof(Ptr)) ?? throw new IllegalStateException("Graph ptr does not have a name");
 
-    public Node GetNode(string name) => new(this, name, create: true);
+    public Node GetNode(string name) => new(this, CGraph.agnode(Ptr, name, create: true));
 
     public Node? FindNode(string name)
     {
