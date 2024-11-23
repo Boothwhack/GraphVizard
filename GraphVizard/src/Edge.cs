@@ -2,19 +2,9 @@ using GraphVizard.Interop;
 
 namespace GraphVizard;
 
-public class Edge
+public class Edge(Graph graph, SWIGTYPE_p_Agedge_t handle)
 {
-    private readonly IntPtr _ptr;
-    public readonly Attributes Attributes;
-
-    internal Edge(Graph graph, IntPtr ptr)
-    {
-        _ptr = ptr;
-        Attributes = graph.AttributeSet.AttributesFor(_ptr, CGraph.AGEDGE);
-    }
-
-    internal Edge(Graph graph, IntPtr tail, IntPtr head, string? identifier) : this(graph,
-        CGraph.agedge(graph.Ptr, tail, head, identifier, true))
-    {
-    }
+    public readonly Graph Graph = graph;
+    public readonly SWIGTYPE_p_Agedge_t Handle = handle;
+    public readonly EdgeAttributes Attributes = new(handle);
 }

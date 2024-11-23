@@ -12,15 +12,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\GraphVizard.Interop\GraphVizard.Interop.csproj"/>
         <None Include="..\README.md" Pack="true" PackagePath="\"/>
-    </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="GitVersion.MsBuild" Version="6.0.5">
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        <PrivateAssets>all</PrivateAssets>
-      </PackageReference>
+        <PackageReference Include="GitVersion.MsBuild" Version="6.0.5">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="GraphVizard.Interop" Version="12.2.0.2" />
     </ItemGroup>
 
 </Project>

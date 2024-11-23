@@ -3,22 +3,15 @@ using GraphVizard.Interop;
 
 namespace GraphVizard;
 
-public class Node
+public class Node(Graph graph, SWIGTYPE_p_Agnode_t handle)
 {
-    internal readonly Graph Graph;
-    internal readonly IntPtr Ptr;
-    public readonly Attributes Attributes;
+    public readonly Graph Graph = graph;
+    public readonly SWIGTYPE_p_Agnode_t Handle = handle;
+    public readonly NodeAttributes Attributes = new(handle);
 
-    public Node(Graph graph, IntPtr ptr)
-    {
-        Graph = graph;
-        Ptr = ptr;
-        Attributes = new Attributes(graph.AttributeSet, Ptr, CGraph.AGNODE);
-    }
+    // public Position Position => CGraph.ND_coord(Handle); TODO
 
-    public Position Position => CGraph.ND_coord(Ptr);
+    public string Name => gv.nameof(Handle) ?? throw new IllegalStateException("Node ptr does not have a name");
 
-    public string Name => Marshal.PtrToStringUTF8(CGraph.agnameof(Ptr)) ?? throw new IllegalStateException("Node ptr does not have a name");
-
-    public Edge AddEdgeTo(Node head, string? identifier = null) => new(Graph, Ptr, head.Ptr, identifier);
+    public Edge AddEdgeTo(Node head) => new(Graph, gv.edge(Handle, head.Handle));
 }

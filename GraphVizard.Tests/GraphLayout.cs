@@ -3,9 +3,9 @@ namespace GraphVizard.Tests;
 public class GraphLayout
 {
     [Fact]
-    public void BasicDotLayout()
+    public void BasicDirectedDotLayout()
     {
-        var graph = new RootGraph("Simple Graph");
+        var graph = RootGraph.Directed("Simple Graph");
 
         var a = graph.GetNode("a");
         var b = graph.GetNode("b");
@@ -16,6 +16,6 @@ public class GraphLayout
         var dot = graph.RenderToString("dot");
 
         Assert.Contains("graph \"Simple Graph\"", dot);
-        Assert.Contains("a -- b", dot);
+        Assert.Contains("a -> b", dot);
     }
 }
