@@ -6,7 +6,7 @@ namespace GraphVizard;
 public abstract class Graph(SWIGTYPE_p_Agraph_t handle)
 {
     public SWIGTYPE_p_Agraph_t Handle { get; protected set; } = handle;
-    public abstract GraphAttributes Attributes { get; }
+    public GraphAttributes Attributes { get; } = new(handle);
     public string Name => gv.nameof(Handle) ?? throw new IllegalStateException("Graph ptr does not have a name");
 
     public Node GetNode(string name) => new(this, gv.node(Handle, name));

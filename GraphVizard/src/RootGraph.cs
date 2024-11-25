@@ -10,8 +10,6 @@ public sealed class RootGraph(SWIGTYPE_p_Agraph_t g) : Graph(g), IDisposable
         Dispose();
     }
 
-    public override GraphAttributes Attributes { get; } = new(g);
-
     public static RootGraph Directed(string name) => new(gv.digraph(name));
 
     public void Dispose()
