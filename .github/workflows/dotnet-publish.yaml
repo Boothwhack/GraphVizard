@@ -26,6 +26,7 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - uses: daaku/gh-action-apt-install@v4
+        if: RUNNER_OS == 'Linux'
         with:
           packages: graphviz
       - run: dotnet test
