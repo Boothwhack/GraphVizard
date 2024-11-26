@@ -9,9 +9,31 @@ public class Node(Graph graph, SWIGTYPE_p_Agnode_t handle)
     public readonly SWIGTYPE_p_Agnode_t Handle = handle;
     public readonly NodeAttributes Attributes = new(handle);
 
-    // public Position Position => CGraph.ND_coord(Handle); TODO
+    public Position Position
+    {
+        get
+        {
+            lock (Sync.ContextLock)
+                return Extensions.ND_coord(Handle);
+        }
+    }
 
-    public string Name => gv.nameof(Handle) ?? throw new IllegalStateException("Node ptr does not have a name");
+    public string Name
+    {
+        get
+        {
+            string name;
+            lock (Sync.ContextLock)
+                name = gv.nameof(Handle);
+            return name ?? throw new IllegalStateException("Node ptr does not have a name");
+        }
+    }
 
-    public Edge AddEdgeTo(Node head) => new(Graph, gv.edge(Handle, head.Handle));
+    public Edge AddEdgeTo(Node head)
+    {
+        SWIGTYPE_p_Agedge_t handle;
+        lock (Sync.ContextLock)
+            handle = gv.edge(Handle, head.Handle);
+        return new Edge(Graph, handle);
+    }
 }
