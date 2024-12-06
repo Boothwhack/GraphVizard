@@ -26,8 +26,6 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: sudo apt update && sudo apt install -y graphviz
-        if: runner.os == 'Linux'
       - run: dotnet test
   publish:
     runs-on: ubuntu-22.04
