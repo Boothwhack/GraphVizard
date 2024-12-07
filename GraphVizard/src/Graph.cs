@@ -35,6 +35,8 @@ public abstract class Graph(SWIGTYPE_p_Agraph_t handle)
         return ptr == null ? null : new Node(this, ptr);
     }
 
+    public IEnumerable<Node> Nodes() => new NodeEnumerable(this);
+
     public SubGraph GetSubGraph(string name)
     {
         SWIGTYPE_p_Agraph_t handle;
