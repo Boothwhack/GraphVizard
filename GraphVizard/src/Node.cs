@@ -29,6 +29,8 @@ public class Node(Graph graph, SWIGTYPE_p_Agnode_t handle) : IEquatable<Node>
         }
     }
 
+    public EdgesInNodeEnumerable Edges => new(this);
+
     public Edge AddEdgeTo(Node head)
     {
         SWIGTYPE_p_Agedge_t handle;

@@ -16,6 +16,8 @@ public sealed class RootGraph(SWIGTYPE_p_Agraph_t g) : Graph(g), IDisposable
             return new RootGraph(gv.digraph(name));
     }
 
+    public IEnumerable<Edge> Edges => new EdgesInGraphEnumerable(this);
+
     public void Dispose()
     {
         lock (Sync.ContextLock)
