@@ -3,7 +3,7 @@ using GraphVizard.Interop;
 
 namespace GraphVizard;
 
-public class Node(Graph graph, SWIGTYPE_p_Agnode_t handle)
+public class Node(Graph graph, SWIGTYPE_p_Agnode_t handle) : IEquatable<Node>
 {
     public readonly Graph Graph = graph;
     public readonly SWIGTYPE_p_Agnode_t Handle = handle;
@@ -35,5 +35,25 @@ public class Node(Graph graph, SWIGTYPE_p_Agnode_t handle)
         lock (Sync.ContextLock)
             handle = gv.edge(Handle, head.Handle);
         return new Edge(Graph, handle);
+    }
+
+    public bool Equals(Node? other)
+    {
+        return other != null && Handle.Equals(other.Handle);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Node other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return Handle.GetHashCode();
+    }
+
+    public override string ToString()
+    {
+        return $"Node('{Name}')";
     }
 }

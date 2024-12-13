@@ -3,9 +3,9 @@ using GraphVizard.Interop;
 
 namespace GraphVizard;
 
-public abstract class Graph(SWIGTYPE_p_Agraph_t handle)
+public abstract class Graph(SWIGTYPE_p_Agraph_t handle) : IEquatable<Graph>
 {
-    public SWIGTYPE_p_Agraph_t Handle { get; protected set; } = handle;
+    public SWIGTYPE_p_Agraph_t Handle { get; } = handle;
     public GraphAttributes Attributes { get; } = new(handle);
 
     public string Name
@@ -51,5 +51,20 @@ public abstract class Graph(SWIGTYPE_p_Agraph_t handle)
         lock (Sync.ContextLock)
             handle = gv.findsubg(Handle, name);
         return handle == null ? null : new SubGraph(this, handle);
+    }
+
+    public bool Equals(Graph? other)
+    {
+        return other != null && Handle.Equals(other.Handle);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Graph other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return Handle.GetHashCode();
     }
 }
