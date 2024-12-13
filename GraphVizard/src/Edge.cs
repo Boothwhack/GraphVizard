@@ -7,6 +7,10 @@ public class Edge(Graph graph, SWIGTYPE_p_Agedge_t handle) : IEquatable<Edge>
     public readonly Graph Graph = graph;
     public readonly SWIGTYPE_p_Agedge_t Handle = handle;
     public readonly EdgeAttributes Attributes = new(handle);
+
+    public Node Head => new(Graph, gv.headof(Handle));
+
+    public Node Tail => new(Graph, gv.tailof(Handle));
     
     public bool Equals(Edge? other)
     {
