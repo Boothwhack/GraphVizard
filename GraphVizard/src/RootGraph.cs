@@ -3,7 +3,7 @@ using GraphVizard.Interop;
 
 namespace GraphVizard;
 
-public sealed class RootGraph(SWIGTYPE_p_Agraph_t g) : Graph(g), IDisposable
+public sealed class RootGraph(SWIGTYPE_p_Agraph_t g) : Graph(g), IDisposable, ICGraphCollection<Edge>
 {
     ~RootGraph()
     {
@@ -16,7 +16,22 @@ public sealed class RootGraph(SWIGTYPE_p_Agraph_t g) : Graph(g), IDisposable
             return new RootGraph(gv.digraph(name));
     }
 
-    public IEnumerable<Edge> Edges => new EdgesInGraphEnumerable(this);
+    Edge? ICGraphCollection<Edge>.First
+    {
+        get
+        {
+            lock (Sync.ContextLock)
+                return Edge.FromHandle(this, gv.firstedge(Handle));
+        }
+    }
+
+    Edge? ICGraphCollection<Edge>.Next(Edge current)
+    {
+        lock (Sync.ContextLock)
+            return Edge.FromHandle(this, gv.nextedge(Handle, current.Handle));
+    }
+
+    public IEnumerable<Edge> Edges => new CGraphCollectionEnumerable<Edge>(this);
 
     public void Dispose()
     {

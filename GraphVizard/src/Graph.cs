@@ -3,7 +3,7 @@ using GraphVizard.Interop;
 
 namespace GraphVizard;
 
-public abstract class Graph(SWIGTYPE_p_Agraph_t handle) : IEquatable<Graph>
+public abstract class Graph(SWIGTYPE_p_Agraph_t handle) : IEquatable<Graph>, ICGraphCollection<Node>
 {
     public SWIGTYPE_p_Agraph_t Handle { get; } = handle;
     public GraphAttributes Attributes { get; } = new(handle);
@@ -35,7 +35,22 @@ public abstract class Graph(SWIGTYPE_p_Agraph_t handle) : IEquatable<Graph>
         return ptr == null ? null : new Node(this, ptr);
     }
 
-    public IEnumerable<Node> Nodes => new NodeEnumerable(this);
+    Node? ICGraphCollection<Node>.First
+    {
+        get
+        {
+            lock (Sync.ContextLock)
+                return Node.FromHandle(this, gv.firstnode(Handle));
+        }
+    }
+
+    Node? ICGraphCollection<Node>.Next(Node current)
+    {
+        lock (Sync.ContextLock)
+            return Node.FromHandle(this, gv.nextnode(Handle, current.Handle));
+    }
+    
+    public IEnumerable<Node> Nodes => new CGraphCollectionEnumerable<Node>(this);
 
     public SubGraph GetSubGraph(string name)
     {
