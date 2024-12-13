@@ -1,48 +1,60 @@
 using System.Runtime.InteropServices;
 using GraphVizard.Interop;
-using static GraphVizard.Interop.GraphViz;
 
 namespace GraphVizard;
 
-public sealed class RootGraph : Graph, IDisposable
+public sealed class RootGraph(SWIGTYPE_p_Agraph_t g) : Graph(g), IDisposable, ICGraphCollection<Edge>
 {
-    // TODO: Validate descriptor
-
-    public override AttributeSet AttributeSet { get; }
-    public override Attributes Attributes { get; }
-
-    public RootGraph(string label) : base(CGraph.agopen(label, 0b01001000, 0))
+    ~RootGraph()
     {
-        AttributeSet = new AttributeSet(Ptr);
-        Attributes = new Attributes(AttributeSet, Ptr, CGraph.AGRAPH);
+        Dispose();
     }
+
+    public static RootGraph Directed(string name)
+    {
+        lock (Sync.ContextLock)
+            return new RootGraph(gv.digraph(name));
+    }
+
+    Edge? ICGraphCollection<Edge>.First
+    {
+        get
+        {
+            lock (Sync.ContextLock)
+                return Edge.FromHandle(this, gv.firstedge(Handle));
+        }
+    }
+
+    Edge? ICGraphCollection<Edge>.Next(Edge current)
+    {
+        lock (Sync.ContextLock)
+            return Edge.FromHandle(this, gv.nextedge(Handle, current.Handle));
+    }
+
+    public IEnumerable<Edge> Edges => new CGraphCollectionEnumerable<Edge>(this);
 
     public void Dispose()
     {
-        if (Ptr != 0)
-        {
-            CGraph.agclose(Ptr);
-            Ptr = 0;
-        }
-
+        lock (Sync.ContextLock)
+            gv.rm(Handle);
         GC.SuppressFinalize(this);
     }
 
     public void Layout(string algo)
     {
-        gvLayout(Context.GetContext(), Ptr, algo);
+        lock (Sync.ContextLock)
+            gv.layout(Handle, algo);
     }
 
     public void RenderToFile(string format, string path)
     {
-        gvRenderFilename(Context.GetContext(), Ptr, format, path);
+        lock (Sync.ContextLock)
+            gv.render(Handle, format, path);
     }
 
     public string RenderToString(string format)
     {
-        gvRenderData(Context.GetContext(), Ptr, format, out var data, out var length);
-        var output = Marshal.PtrToStringUTF8(data, (int) length);
-        gvFreeRenderData(data);
-        return output;
+        lock (Sync.ContextLock)
+            return gv.renderdata(Handle, format);
     }
 }

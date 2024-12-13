@@ -2,30 +2,76 @@ using GraphVizard.Interop;
 
 namespace GraphVizard;
 
-public class Node
+public class Node(Graph graph, SWIGTYPE_p_Agnode_t handle) : IEquatable<Node>, ICGraphCollection<Edge>
 {
-    internal readonly Graph Graph;
-    internal readonly IntPtr Ptr;
-    public readonly Attributes Attributes;
+    public readonly Graph Graph = graph;
+    public readonly SWIGTYPE_p_Agnode_t Handle = handle;
+    public readonly NodeAttributes Attributes = new(handle);
 
-    internal Node(Graph graph, IntPtr ptr)
+    public Position Position
     {
-        Graph = graph;
-        Ptr = ptr;
-        Attributes = new Attributes(graph.AttributeSet, Ptr, CGraph.AGNODE);
+        get
+        {
+            lock (Sync.ContextLock)
+                return Extensions.ND_coord(Handle);
+        }
     }
 
-    internal Node(Graph graph, string name, bool create) : this(graph, CGraph.agnode(graph.Ptr, name, create))
+    public string Name
     {
+        get
+        {
+            string name;
+            lock (Sync.ContextLock)
+                name = gv.nameof(Handle);
+            return name ?? throw new IllegalStateException("Node ptr does not have a name");
+        }
     }
 
-    public Position Position => CGraph.ND_coord(Ptr);
+    public static Node? FromHandle(Graph graph, SWIGTYPE_p_Agnode_t? handle) => handle is null ? null : new Node(graph, handle);
 
-    public string? Label
+    public IEnumerable<Edge> Edges => new CGraphCollectionEnumerable<Edge>(this);
+
+    public Edge AddEdgeTo(Node head)
     {
-        get => Attributes["label"];
-        set => Attributes["label"] = value;
+        SWIGTYPE_p_Agedge_t handle;
+        lock (Sync.ContextLock)
+            handle = gv.edge(Handle, head.Handle);
+        return new Edge(Graph, handle);
     }
 
-    public Edge AddEdgeTo(Node head, string? identifier = null) => new(Graph, Ptr, head.Ptr, identifier);
+    public Edge? First
+    {
+        get
+        {
+            lock (Sync.ContextLock)
+                return Edge.FromHandle(Graph, gv.firstedge(Handle));
+        }
+    }
+
+    public Edge? Next(Edge current)
+    {
+        lock (Sync.ContextLock)
+            return Edge.FromHandle(Graph, gv.nextedge(Handle, current.Handle));
+    }
+
+    public bool Equals(Node? other)
+    {
+        return other != null && Handle.Equals(other.Handle);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Node other && Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+        return Handle.GetHashCode();
+    }
+
+    public override string ToString()
+    {
+        return $"Node('{Name}')";
+    }
 }

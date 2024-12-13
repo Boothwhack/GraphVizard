@@ -8,17 +8,17 @@
         <PackageId>GraphVizard</PackageId>
         <Authors>Karoline Rasmussen</Authors>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\GraphVizard.Interop\GraphVizard.Interop.csproj"/>
-        <None Include="..\README.md" Pack="true" PackagePath="\"/>
-    </ItemGroup>
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
 
-    <ItemGroup>
-        <PackageReference Include="Nerdbank.GitVersioning"
-                          Version="3.6.146"
-                          PrivateAssets="all"/>
+        <PackageReference Include="GitVersion.MsBuild" Version="6.0.5">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="GraphVizard.Interop" Version="12.2.0.10" />
     </ItemGroup>
 
 </Project>

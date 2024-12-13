@@ -1,8 +1,17 @@
 name: dotnet publish
-on: push
+on:
+  push:
+    # publish tags and release branches
+    tags:
+      - "*"
+    branches:
+      - "release/*"
 jobs:
+  test:
+    uses: ./.github/workflows/test.yaml
   publish:
     runs-on: ubuntu-22.04
+    needs: test
     steps:
       - uses: actions/checkout@v4
         with:

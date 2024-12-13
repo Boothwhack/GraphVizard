@@ -1,0 +1,10 @@
+name: dotnet test
+on:
+  push:
+    # test on feature branches
+    branches:
+      - "feature/*"
+  pull_request:
+jobs:
+  test:
+    uses: ./.github/workflows/test.yaml
